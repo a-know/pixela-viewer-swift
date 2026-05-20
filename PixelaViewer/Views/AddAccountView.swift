@@ -46,13 +46,15 @@ struct AddAccountView: View {
     private func addAccount() {
         isLoading = true
         errorMessage = nil
-        do {
-            try accountStore.addAccount(username: username, token: token)
-            dismiss()
-            Task { await accountStore.fetchAllGraphs() }
-        } catch {
-            errorMessage = error.localizedDescription
+        Task {
+            defer { isLoading = false }
+            do {
+                try await accountStore.addAccount(username: username, token: token)
+                dismiss()
+                await accountStore.fetchAllGraphs()
+            } catch {
+                errorMessage = error.localizedDescription
+            }
         }
-        isLoading = false
     }
 }

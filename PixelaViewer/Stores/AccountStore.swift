@@ -14,10 +14,11 @@ final class AccountStore: ObservableObject {
         loadAccounts()
     }
 
-    func addAccount(username: String, token: String) throws {
+    func addAccount(username: String, token: String) async throws {
         guard !accounts.contains(where: { $0.username == username }) else {
             throw AccountError.duplicateUsername
         }
+        try await PixelaAPIService.authenticate(username: username, token: token)
         try KeychainService.saveToken(token, for: username)
         let account = Account(username: username)
         accounts.append(account)

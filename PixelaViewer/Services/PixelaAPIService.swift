@@ -3,6 +3,22 @@ import Foundation
 enum PixelaAPIService {
     private static let baseURL = "https://pixe.la/v1/users"
 
+    static func authenticate(username: String, token: String) async throws {
+        guard let url = URL(string: "\(baseURL)/\(username)/authentication") else {
+            throw APIError.invalidURL
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue(token, forHTTPHeaderField: "X-USER-TOKEN")
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        let body = try? JSONDecoder().decode(PixelaResponse.self, from: data)
+
+        guard let http = response as? HTTPURLResponse, http.statusCode == 200, body?.isSuccess == true else {
+            throw APIError.authenticationFailed(body?.message ?? "認証に失敗しました")
+        }
+    }
+
     static func fetchGraphs(for account: Account, token: String) async throws -> [Graph] {
         guard let url = URL(string: "\(baseURL)/\(account.username)/graphs") else {
             throw APIError.invalidURL
@@ -29,6 +45,11 @@ enum PixelaAPIService {
     }
 }
 
+private struct PixelaResponse: Decodable {
+    let message: String
+    let isSuccess: Bool
+}
+
 private struct GraphListResponse: Decodable {
     let graphs: [GraphDTO]
 }
@@ -44,11 +65,13 @@ private struct GraphDTO: Decodable {
 enum APIError: LocalizedError {
     case invalidURL
     case requestFailed
+    case authenticationFailed(String)
 
     var errorDescription: String? {
         switch self {
         case .invalidURL: "URLの生成に失敗しました"
         case .requestFailed: "APIリクエストに失敗しました"
+        case .authenticationFailed(let message): message
         }
     }
 }
