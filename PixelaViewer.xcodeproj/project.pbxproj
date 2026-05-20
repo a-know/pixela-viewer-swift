@@ -1,0 +1,362 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0236EDC788AA71B853344FD9 /* AccountManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960BBE76B61E7556F2CED040 /* AccountManagementView.swift */; };
+		06EC1A2CC63A3C3D44340964 /* AsyncSVGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3243C1F9DE1A94087C3B9F19 /* AsyncSVGView.swift */; };
+		147CDBBA4E35A914CD3DF2E9 /* PixelaViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619FF46E8E6447771DD5EF95 /* PixelaViewerApp.swift */; };
+		2CC6998D59463A0811D4A947 /* GraphRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475F87692916E52FB27A9F7E /* GraphRowView.swift */; };
+		79EBB78F1447832D115BFDB8 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = A230D3CEA56D63728C1CA17C /* Account.swift */; };
+		7E39BA57D1381F056254390A /* AccountStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585776760050BC636FCA9329 /* AccountStore.swift */; };
+		90FC7F20A19081B58C3DCABC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C025E9DAE69ECE275FE824F /* ContentView.swift */; };
+		916AD523058A30BF965BC1B6 /* AddAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D22BE30A62489D694C915C /* AddAccountView.swift */; };
+		9966C3B0864875348B45A321 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D05BAC010FD26740D2D61 /* Graph.swift */; };
+		ACD87DED3B30CDA242289806 /* PixelaAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51226EA1CEEB9D58B6417E3C /* PixelaAPIService.swift */; };
+		C480FD4E8ED968290A2BBFBA /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC2784747C3652121101A9A /* KeychainService.swift */; };
+		F8DBEEE8C1069065F364FBB1 /* GraphListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B32B1E315264AB104E3203 /* GraphListView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		23D22BE30A62489D694C915C /* AddAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountView.swift; sourceTree = "<group>"; };
+		3243C1F9DE1A94087C3B9F19 /* AsyncSVGView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncSVGView.swift; sourceTree = "<group>"; };
+		475F87692916E52FB27A9F7E /* GraphRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphRowView.swift; sourceTree = "<group>"; };
+		4C025E9DAE69ECE275FE824F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		51226EA1CEEB9D58B6417E3C /* PixelaAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelaAPIService.swift; sourceTree = "<group>"; };
+		585776760050BC636FCA9329 /* AccountStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStore.swift; sourceTree = "<group>"; };
+		619FF46E8E6447771DD5EF95 /* PixelaViewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelaViewerApp.swift; sourceTree = "<group>"; };
+		652D05BAC010FD26740D2D61 /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
+		7FC2784747C3652121101A9A /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		836A6B192B1F0C17D7B354C8 /* PixelaViewer.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PixelaViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		960BBE76B61E7556F2CED040 /* AccountManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementView.swift; sourceTree = "<group>"; };
+		A230D3CEA56D63728C1CA17C /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		A4B32B1E315264AB104E3203 /* GraphListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphListView.swift; sourceTree = "<group>"; };
+		ED196D06AF7614A757F3234E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		2B904602B70745254C2A9EB8 /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				585776760050BC636FCA9329 /* AccountStore.swift */,
+			);
+			path = Stores;
+			sourceTree = "<group>";
+		};
+		973318460891A8B63664D7CE /* PixelaViewer */ = {
+			isa = PBXGroup;
+			children = (
+				ED196D06AF7614A757F3234E /* Info.plist */,
+				619FF46E8E6447771DD5EF95 /* PixelaViewerApp.swift */,
+				E7D3A9235CA66879D80A7B37 /* Models */,
+				EFCA04CAE4194C8E41FE0F9B /* Services */,
+				2B904602B70745254C2A9EB8 /* Stores */,
+				FDE78EA6BE657CC553F04C16 /* Views */,
+			);
+			path = PixelaViewer;
+			sourceTree = "<group>";
+		};
+		C30C849E977A05AEFA9A3A8D = {
+			isa = PBXGroup;
+			children = (
+				973318460891A8B63664D7CE /* PixelaViewer */,
+				D5D72F36F2336F940F3AAFEF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D5D72F36F2336F940F3AAFEF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				836A6B192B1F0C17D7B354C8 /* PixelaViewer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E7D3A9235CA66879D80A7B37 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A230D3CEA56D63728C1CA17C /* Account.swift */,
+				652D05BAC010FD26740D2D61 /* Graph.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EFCA04CAE4194C8E41FE0F9B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7FC2784747C3652121101A9A /* KeychainService.swift */,
+				51226EA1CEEB9D58B6417E3C /* PixelaAPIService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		FDE78EA6BE657CC553F04C16 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				960BBE76B61E7556F2CED040 /* AccountManagementView.swift */,
+				23D22BE30A62489D694C915C /* AddAccountView.swift */,
+				3243C1F9DE1A94087C3B9F19 /* AsyncSVGView.swift */,
+				4C025E9DAE69ECE275FE824F /* ContentView.swift */,
+				A4B32B1E315264AB104E3203 /* GraphListView.swift */,
+				475F87692916E52FB27A9F7E /* GraphRowView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0BCD1413F464C016E85F37FC /* PixelaViewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DFE89C3946AB54D17F277FB /* Build configuration list for PBXNativeTarget "PixelaViewer" */;
+			buildPhases = (
+				445B6CD16EC85779051171EE /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PixelaViewer;
+			packageProductDependencies = (
+			);
+			productName = PixelaViewer;
+			productReference = 836A6B192B1F0C17D7B354C8 /* PixelaViewer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A0ECFCC32273E19CCF80C95A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 391F09AA0BFEC83A95E8DA5C /* Build configuration list for PBXProject "PixelaViewer" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = C30C849E977A05AEFA9A3A8D;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = D5D72F36F2336F940F3AAFEF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0BCD1413F464C016E85F37FC /* PixelaViewer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		445B6CD16EC85779051171EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79EBB78F1447832D115BFDB8 /* Account.swift in Sources */,
+				0236EDC788AA71B853344FD9 /* AccountManagementView.swift in Sources */,
+				7E39BA57D1381F056254390A /* AccountStore.swift in Sources */,
+				916AD523058A30BF965BC1B6 /* AddAccountView.swift in Sources */,
+				06EC1A2CC63A3C3D44340964 /* AsyncSVGView.swift in Sources */,
+				90FC7F20A19081B58C3DCABC /* ContentView.swift in Sources */,
+				9966C3B0864875348B45A321 /* Graph.swift in Sources */,
+				F8DBEEE8C1069065F364FBB1 /* GraphListView.swift in Sources */,
+				2CC6998D59463A0811D4A947 /* GraphRowView.swift in Sources */,
+				C480FD4E8ED968290A2BBFBA /* KeychainService.swift in Sources */,
+				ACD87DED3B30CDA242289806 /* PixelaAPIService.swift in Sources */,
+				147CDBBA4E35A914CD3DF2E9 /* PixelaViewerApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0796A6BC2BE3F96140F1BC35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		387FD7FF884F531013F348FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = PixelaViewer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.a-know.PixelaViewer";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5E0DFCED7E7AE48682A238F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		CD2D34B36ED4A15D21DDC5B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = PixelaViewer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.a-know.PixelaViewer";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		391F09AA0BFEC83A95E8DA5C /* Build configuration list for PBXProject "PixelaViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E0DFCED7E7AE48682A238F7 /* Debug */,
+				0796A6BC2BE3F96140F1BC35 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7DFE89C3946AB54D17F277FB /* Build configuration list for PBXNativeTarget "PixelaViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				387FD7FF884F531013F348FC /* Debug */,
+				CD2D34B36ED4A15D21DDC5B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A0ECFCC32273E19CCF80C95A /* Project object */;
+}

@@ -1,0 +1,42 @@
+name: PixelaViewer
+options:
+  bundleIdPrefix: com.a-know
+  deploymentTarget:
+    iOS: "17.0"
+  defaultConfig: Debug
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+targets:
+  PixelaViewer:
+    type: application
+    platform: iOS
+    sources:
+      - path: PixelaViewer
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.a-know.PixelaViewer
+        INFOPLIST_FILE: PixelaViewer/Info.plist
+        TARGETED_DEVICE_FAMILY: "1,2"
+    info:
+      path: PixelaViewer/Info.plist
+      properties:
+        CFBundleName: PixelaViewer
+        CFBundleDisplayName: Pixela Viewer
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        UILaunchScreen:
+          UIColorName: ""
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
