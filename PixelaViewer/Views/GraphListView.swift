@@ -38,12 +38,21 @@ struct GraphListView: View {
         }
     }
 
+    private var columns: [GridItem] {
+        isCompact
+            ? [GridItem(.flexible()), GridItem(.flexible())]
+            : [GridItem(.flexible())]
+    }
+
     private var graphList: some View {
-        List(accountStore.graphs) { graph in
-            GraphRowView(graph: graph, isCompact: isCompact, isDarkMode: isDarkMode)
-                .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 16) {
+                ForEach(accountStore.graphs) { graph in
+                    GraphRowView(graph: graph, isCompact: isCompact, isDarkMode: isDarkMode)
+                }
+            }
+            .padding(16)
         }
-        .listStyle(.plain)
     }
 
     private var emptyAccountsView: some View {
