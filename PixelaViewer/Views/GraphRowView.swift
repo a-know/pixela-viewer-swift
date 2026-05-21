@@ -72,6 +72,11 @@ struct GraphRowView: View {
         if isCompact {
             VStack(alignment: .leading, spacing: 4) {
                 HStack(alignment: .firstTextBaseline, spacing: 3) {
+                    if isPinned {
+                        Image(systemName: "pin.fill")
+                            .font(.caption2)
+                            .foregroundStyle(.orange)
+                    }
                     Text(graph.name)
                         .font(.subheadline.bold())
                         .foregroundStyle(.primary)
@@ -91,6 +96,11 @@ struct GraphRowView: View {
         } else {
             HStack {
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
+                    if isPinned {
+                        Image(systemName: "pin.fill")
+                            .font(.subheadline)
+                            .foregroundStyle(.orange)
+                    }
                     Text(graph.name)
                         .font(.headline)
                         .foregroundStyle(.primary)
