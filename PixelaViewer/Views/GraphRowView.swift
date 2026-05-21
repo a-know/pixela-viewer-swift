@@ -9,6 +9,7 @@ struct GraphRowView: View {
     let onToggleVisibility: () -> Void
 
     @State private var svgHeight: CGFloat = 120
+    @State private var svgIsLoading = true
     @State private var stats: GraphStats?
 
     var body: some View {
@@ -87,15 +88,29 @@ struct GraphRowView: View {
     private var svgView: some View {
         if let url = graph.svgURL(isCompact: isCompact, isDarkMode: isDarkMode) {
             GeometryReader { proxy in
-                AsyncSVGView(
-                    url: url,
-                    availableWidth: proxy.size.width,
-                    onHeightMeasured: { height in svgHeight = height }
-                )
-                .frame(width: proxy.size.width, height: svgHeight)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                ZStack {
+                    AsyncSVGView(
+                        url: url,
+                        availableWidth: proxy.size.width,
+                        onHeightMeasured: { height in svgHeight = height },
+                        onSVGLoadComplete: { svgIsLoading = false }
+                    )
+                    .frame(width: proxy.size.width, height: svgHeight)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+
+                    if svgIsLoading {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(.secondary.opacity(0.12))
+                            .frame(width: proxy.size.width, height: svgHeight)
+                            .overlay { ProgressView() }
+                            .transition(.opacity)
+                    }
+                }
             }
             .frame(height: svgHeight)
+            .onChange(of: url) {
+                svgIsLoading = true
+            }
         }
     }
 

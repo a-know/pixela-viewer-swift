@@ -5,11 +5,13 @@ struct AsyncSVGView: UIViewRepresentable {
     let url: URL
     let availableWidth: CGFloat
     let onHeightMeasured: ((CGFloat) -> Void)?
+    let onSVGLoadComplete: (() -> Void)?
 
-    init(url: URL, availableWidth: CGFloat = 0, onHeightMeasured: ((CGFloat) -> Void)? = nil) {
+    init(url: URL, availableWidth: CGFloat = 0, onHeightMeasured: ((CGFloat) -> Void)? = nil, onSVGLoadComplete: (() -> Void)? = nil) {
         self.url = url
         self.availableWidth = availableWidth
         self.onHeightMeasured = onHeightMeasured
+        self.onSVGLoadComplete = onSVGLoadComplete
     }
 
     func makeCoordinator() -> Coordinator {
@@ -21,6 +23,10 @@ struct AsyncSVGView: UIViewRepresentable {
         config.userContentController.add(
             WeakScriptMessageHandler(context.coordinator),
             name: "aspectRatio"
+        )
+        config.userContentController.add(
+            WeakScriptMessageHandler(context.coordinator),
+            name: "svgDidLoad"
         )
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.isUserInteractionEnabled = false
@@ -35,6 +41,7 @@ struct AsyncSVGView: UIViewRepresentable {
     func updateUIView(_ webView: WKWebView, context: Context) {
         context.coordinator.availableWidth = availableWidth
         context.coordinator.onHeightMeasured = onHeightMeasured
+        context.coordinator.onSVGLoadComplete = onSVGLoadComplete
         guard context.coordinator.loadedURL != url else { return }
         context.coordinator.loadedURL = url
         webView.loadHTMLString(makeHTML(url: url, reportRatio: availableWidth > 0), baseURL: url)
@@ -42,20 +49,14 @@ struct AsyncSVGView: UIViewRepresentable {
 
     static func dismantleUIView(_ webView: WKWebView, coordinator: Coordinator) {
         webView.configuration.userContentController.removeScriptMessageHandler(forName: "aspectRatio")
+        webView.configuration.userContentController.removeScriptMessageHandler(forName: "svgDidLoad")
     }
 
     private func makeHTML(url: URL, reportRatio: Bool) -> String {
-        let script = reportRatio ? """
-        <script>
-        var img = document.getElementById('g');
-        function report() {
-            if (img.naturalWidth > 0) {
-                window.webkit.messageHandlers.aspectRatio.postMessage(img.naturalHeight / img.naturalWidth);
-            }
+        let ratioJS = reportRatio ? """
+        if (img.naturalWidth > 0) {
+            window.webkit.messageHandlers.aspectRatio.postMessage(img.naturalHeight / img.naturalWidth);
         }
-        img.addEventListener('load', report);
-        if (img.complete && img.naturalWidth > 0) report();
-        </script>
         """ : ""
 
         return """
@@ -69,7 +70,21 @@ struct AsyncSVGView: UIViewRepresentable {
         img { width: 100%; height: auto; display: block; }
         </style>
         </head>
-        <body><img id="g" src="\(url.absoluteString)">\(script)</body>
+        <body>
+        <img id="g" src="\(url.absoluteString)">
+        <script>
+        var img = document.getElementById('g');
+        function onLoad() {
+            \(ratioJS)
+            window.webkit.messageHandlers.svgDidLoad.postMessage(true);
+        }
+        img.addEventListener('load', onLoad);
+        img.addEventListener('error', function() {
+            window.webkit.messageHandlers.svgDidLoad.postMessage(false);
+        });
+        if (img.complete && img.naturalWidth > 0) onLoad();
+        </script>
+        </body>
         </html>
         """
     }
@@ -78,15 +93,21 @@ struct AsyncSVGView: UIViewRepresentable {
         var loadedURL: URL?
         var availableWidth: CGFloat = 0
         var onHeightMeasured: ((CGFloat) -> Void)?
+        var onSVGLoadComplete: (() -> Void)?
 
         func userContentController(_ controller: WKUserContentController, didReceive message: WKScriptMessage) {
-            guard message.name == "aspectRatio",
-                  let ratio = message.body as? Double,
-                  ratio > 0,
-                  availableWidth > 0 else { return }
-            let height = availableWidth * ratio
-            DispatchQueue.main.async { [weak self] in
-                self?.onHeightMeasured?(height)
+            if message.name == "aspectRatio",
+               let ratio = message.body as? Double,
+               ratio > 0,
+               availableWidth > 0 {
+                let height = availableWidth * ratio
+                DispatchQueue.main.async { [weak self] in
+                    self?.onHeightMeasured?(height)
+                }
+            } else if message.name == "svgDidLoad" {
+                DispatchQueue.main.async { [weak self] in
+                    self?.onSVGLoadComplete?()
+                }
             }
         }
     }
