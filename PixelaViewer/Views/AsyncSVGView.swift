@@ -39,9 +39,17 @@ struct AsyncSVGView: UIViewRepresentable {
     }
 
     func updateUIView(_ webView: WKWebView, context: Context) {
+        let prevWidth = context.coordinator.availableWidth
         context.coordinator.availableWidth = availableWidth
         context.coordinator.onHeightMeasured = onHeightMeasured
         context.coordinator.onSVGLoadComplete = onSVGLoadComplete
+
+        if availableWidth > 0, prevWidth != availableWidth, context.coordinator.lastRatio > 0 {
+            let newHeight = availableWidth * context.coordinator.lastRatio
+            let callback = onHeightMeasured
+            DispatchQueue.main.async { callback?(newHeight) }
+        }
+
         guard context.coordinator.loadedURL != url else { return }
         context.coordinator.loadedURL = url
         webView.loadHTMLString(makeHTML(url: url, reportRatio: availableWidth > 0), baseURL: url)
@@ -92,6 +100,7 @@ struct AsyncSVGView: UIViewRepresentable {
     final class Coordinator: NSObject, WKScriptMessageHandler {
         var loadedURL: URL?
         var availableWidth: CGFloat = 0
+        var lastRatio: Double = 0
         var onHeightMeasured: ((CGFloat) -> Void)?
         var onSVGLoadComplete: (() -> Void)?
 
@@ -100,6 +109,7 @@ struct AsyncSVGView: UIViewRepresentable {
                let ratio = message.body as? Double,
                ratio > 0,
                availableWidth > 0 {
+                lastRatio = ratio
                 let height = availableWidth * ratio
                 DispatchQueue.main.async { [weak self] in
                     self?.onHeightMeasured?(height)
