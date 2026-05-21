@@ -17,6 +17,7 @@
 		916AD523058A30BF965BC1B6 /* AddAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D22BE30A62489D694C915C /* AddAccountView.swift */; };
 		9966C3B0864875348B45A321 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D05BAC010FD26740D2D61 /* Graph.swift */; };
 		ACD87DED3B30CDA242289806 /* PixelaAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51226EA1CEEB9D58B6417E3C /* PixelaAPIService.swift */; };
+		B592444FCF9F55B68D3F9CD6 /* GraphStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35907CD2CDAE05E684B5F972 /* GraphStats.swift */; };
 		C480FD4E8ED968290A2BBFBA /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC2784747C3652121101A9A /* KeychainService.swift */; };
 		F8DBEEE8C1069065F364FBB1 /* GraphListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B32B1E315264AB104E3203 /* GraphListView.swift */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,7 @@
 /* Begin PBXFileReference section */
 		23D22BE30A62489D694C915C /* AddAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountView.swift; sourceTree = "<group>"; };
 		3243C1F9DE1A94087C3B9F19 /* AsyncSVGView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncSVGView.swift; sourceTree = "<group>"; };
+		35907CD2CDAE05E684B5F972 /* GraphStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphStats.swift; sourceTree = "<group>"; };
 		475F87692916E52FB27A9F7E /* GraphRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphRowView.swift; sourceTree = "<group>"; };
 		4C025E9DAE69ECE275FE824F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		51226EA1CEEB9D58B6417E3C /* PixelaAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelaAPIService.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			children = (
 				A230D3CEA56D63728C1CA17C /* Account.swift */,
 				652D05BAC010FD26740D2D61 /* Graph.swift */,
+				35907CD2CDAE05E684B5F972 /* GraphStats.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 				9966C3B0864875348B45A321 /* Graph.swift in Sources */,
 				F8DBEEE8C1069065F364FBB1 /* GraphListView.swift in Sources */,
 				2CC6998D59463A0811D4A947 /* GraphRowView.swift in Sources */,
+				B592444FCF9F55B68D3F9CD6 /* GraphStats.swift in Sources */,
 				C480FD4E8ED968290A2BBFBA /* KeychainService.swift in Sources */,
 				ACD87DED3B30CDA242289806 /* PixelaAPIService.swift in Sources */,
 				147CDBBA4E35A914CD3DF2E9 /* PixelaViewerApp.swift in Sources */,

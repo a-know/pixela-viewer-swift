@@ -9,6 +9,7 @@ struct GraphRowView: View {
     let onToggleVisibility: () -> Void
 
     @State private var svgHeight: CGFloat = 200
+    @State private var stats: GraphStats?
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -33,12 +34,18 @@ struct GraphRowView: View {
                 .padding(8)
             }
         }
+        .task {
+            await loadStats()
+        }
     }
 
     private var cardContent: some View {
         VStack(alignment: .leading, spacing: 8) {
             header
             svgView
+            if !isCompact {
+                statsView
+            }
         }
         .padding(8)
         .background(.background.secondary)
@@ -98,6 +105,64 @@ struct GraphRowView: View {
                 }
                 .frame(height: svgHeight)
             }
+        }
+    }
+
+    @ViewBuilder
+    private var statsView: some View {
+        if let stats {
+            Divider()
+            HStack(spacing: 0) {
+                statItem(label: "今日", value: stats.todaysQuantity)
+                Spacer()
+                statItem(label: "昨日", value: stats.yesterdayQuantity)
+                Spacer()
+                Divider()
+                    .frame(height: 28)
+                Spacer()
+                statItem(label: "最大", value: stats.maxQuantity)
+                Spacer()
+                statItem(label: "最小", value: stats.minQuantity)
+                Spacer()
+                statItem(label: "平均", value: stats.avgQuantity)
+            }
+        } else {
+            // ロード中のプレースホルダー
+            HStack {
+                ProgressView()
+                    .scaleEffect(0.7)
+                Text("統計を取得中...")
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+
+    private func statItem(label: String, value: Double) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(label)
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+            Text("\(formatQuantity(value)) \(graph.unit)")
+                .font(.callout.bold())
+                .foregroundStyle(.primary)
+        }
+    }
+
+    private func formatQuantity(_ value: Double) -> String {
+        value.truncatingRemainder(dividingBy: 1) == 0
+            ? String(Int(value))
+            : String(format: "%.2f", value)
+    }
+
+    private func loadStats() async {
+        guard !isCompact else { return }
+        do {
+            let token = try KeychainService.loadToken(for: graph.account.username)
+            stats = try await PixelaAPIService.fetchGraphStats(for: graph, token: token)
+        } catch {
+            // スタッツ取得失敗はサイレントに無視（グラフ表示は継続）
         }
     }
 

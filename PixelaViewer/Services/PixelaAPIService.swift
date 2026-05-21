@@ -19,6 +19,21 @@ enum PixelaAPIService {
         }
     }
 
+    static func fetchGraphStats(for graph: Graph, token: String) async throws -> GraphStats {
+        guard let url = URL(string: "\(baseURL)/\(graph.account.username)/graphs/\(graph.graphID)/stats") else {
+            throw APIError.invalidURL
+        }
+        var request = URLRequest(url: url)
+        request.setValue(token, forHTTPHeaderField: "X-USER-TOKEN")
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse else { throw APIError.requestFailed }
+        if (500...599).contains(http.statusCode) { throw APIError.serverError(http.statusCode) }
+        guard http.statusCode == 200 else { throw APIError.requestFailed }
+
+        return try JSONDecoder().decode(GraphStats.self, from: data)
+    }
+
     static func fetchGraphs(for account: Account, token: String) async throws -> [Graph] {
         guard let url = URL(string: "\(baseURL)/\(account.username)/graphs") else {
             throw APIError.invalidURL
