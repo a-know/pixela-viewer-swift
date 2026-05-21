@@ -80,7 +80,7 @@ struct GraphRowView: View {
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                 }
-                Text(graph.account.username)
+                (Text(Image(systemName: "person.fill")) + Text(" \(graph.account.username)"))
                     .font(.caption2)
                     .padding(.horizontal, 6)
                     .padding(.vertical, 2)
@@ -99,7 +99,7 @@ struct GraphRowView: View {
                         .foregroundStyle(.secondary)
                 }
                 Spacer()
-                Text(graph.account.username)
+                (Text(Image(systemName: "person.fill")) + Text(" \(graph.account.username)"))
                     .font(.caption)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 3)
