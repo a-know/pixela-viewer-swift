@@ -10,11 +10,6 @@ struct GraphListView: View {
     private var isCompact: Bool { horizontalSizeClass == .compact }
     private var isDarkMode: Bool { colorScheme == .dark }
 
-    private var columns: [GridItem] {
-        isCompact
-            ? [GridItem(.flexible()), GridItem(.flexible())]
-            : [GridItem(.flexible())]
-    }
 
     var body: some View {
         Group {
@@ -119,27 +114,9 @@ struct GraphListView: View {
             if accountStore.hasServerError {
                 serverErrorBanner
             }
-            LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(accountStore.visibleGraphs) { graph in
-                    GraphRowView(
-                        graph: graph,
-                        isCompact: isCompact,
-                        isDarkMode: isDarkMode,
-                        isEditing: isEditing,
-                        isHidden: false,
-                        isPinned: accountStore.isPinned(graph),
-                        onToggleVisibility: {
-                            accountStore.hideGraph(graph)
-                            showToast(.hidden)
-                        },
-                        onTogglePin: {
-                            accountStore.isPinned(graph) ? accountStore.unpinGraph(graph) : accountStore.pinGraph(graph)
-                        }
-                    )
-                }
-            }
-            .padding(.horizontal, 16)
-            .padding(.top, 16)
+            graphGrid(graphs: accountStore.visibleGraphs, isHidden: false)
+                .padding(.horizontal, 16)
+                .padding(.top, 16)
 
             if accountStore.showHidden && !accountStore.hiddenGraphs.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
@@ -148,32 +125,50 @@ struct GraphListView: View {
                         .foregroundStyle(.secondary)
                         .padding(.horizontal, 16)
 
-                    LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(accountStore.hiddenGraphs) { graph in
-                            GraphRowView(
-                                graph: graph,
-                                isCompact: isCompact,
-                                isDarkMode: isDarkMode,
-                                isEditing: isEditing,
-                                isHidden: true,
-                                isPinned: accountStore.isPinned(graph),
-                                onToggleVisibility: {
-                                    accountStore.unhideGraph(graph)
-                                    showToast(.shown)
-                                },
-                                onTogglePin: {
-                                    accountStore.isPinned(graph) ? accountStore.unpinGraph(graph) : accountStore.pinGraph(graph)
-                                }
-                            )
-                        }
-                    }
-                    .padding(.horizontal, 16)
+                    graphGrid(graphs: accountStore.hiddenGraphs, isHidden: true)
+                        .padding(.horizontal, 16)
                 }
                 .padding(.top, 8)
             }
 
             Spacer().frame(height: 16)
         }
+    }
+
+    @ViewBuilder
+    private func graphGrid(graphs: [Graph], isHidden: Bool) -> some View {
+        if isCompact {
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
+                ForEach(graphs) { graph in graphRowView(graph: graph, isHidden: isHidden) }
+            }
+        } else {
+            VStack(spacing: 16) {
+                ForEach(graphs) { graph in graphRowView(graph: graph, isHidden: isHidden) }
+            }
+        }
+    }
+
+    private func graphRowView(graph: Graph, isHidden: Bool) -> some View {
+        GraphRowView(
+            graph: graph,
+            isCompact: isCompact,
+            isDarkMode: isDarkMode,
+            isEditing: isEditing,
+            isHidden: isHidden,
+            isPinned: accountStore.isPinned(graph),
+            onToggleVisibility: {
+                if isHidden {
+                    accountStore.unhideGraph(graph)
+                    showToast(.shown)
+                } else {
+                    accountStore.hideGraph(graph)
+                    showToast(.hidden)
+                }
+            },
+            onTogglePin: {
+                accountStore.isPinned(graph) ? accountStore.unpinGraph(graph) : accountStore.pinGraph(graph)
+            }
+        )
     }
 
     private var emptyAccountsView: some View {
