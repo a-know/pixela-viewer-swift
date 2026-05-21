@@ -5,6 +5,7 @@ struct GraphListView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State private var isEditing = false
+    @State private var toastKind: ToastKind? = nil
 
     private var isCompact: Bool { horizontalSizeClass == .compact }
     private var isDarkMode: Bool { colorScheme == .dark }
@@ -58,6 +59,24 @@ struct GraphListView: View {
         .refreshable {
             await accountStore.fetchAllGraphs()
         }
+        .overlay(alignment: .bottom) {
+            if let kind = toastKind {
+                ToastView(kind: kind)
+                    .padding(.bottom, 24)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
+        }
+        .animation(.easeInOut(duration: 0.25), value: toastKind != nil)
+        .task(id: toastKind) {
+            guard toastKind != nil else { return }
+            let duration: Double = toastKind == .hidden ? 4.5 : 2.5
+            try? await Task.sleep(for: .seconds(duration))
+            withAnimation(.easeOut(duration: 0.3)) { toastKind = nil }
+        }
+    }
+
+    private func showToast(_ kind: ToastKind) {
+        withAnimation(.easeIn(duration: 0.2)) { toastKind = kind }
     }
 
     private var serverErrorView: some View {
@@ -110,6 +129,7 @@ struct GraphListView: View {
                         isHidden: false
                     ) {
                         accountStore.hideGraph(graph)
+                        showToast(.hidden)
                     }
                 }
             }
@@ -133,6 +153,7 @@ struct GraphListView: View {
                                 isHidden: true
                             ) {
                                 accountStore.unhideGraph(graph)
+                                showToast(.shown)
                             }
                         }
                     }
@@ -159,5 +180,36 @@ struct GraphListView: View {
             systemImage: "chart.bar.xaxis",
             description: Text("登録されたアカウントにグラフがありません")
         )
+    }
+}
+
+private enum ToastKind: Equatable {
+    case shown
+    case hidden
+}
+
+private struct ToastView: View {
+    let kind: ToastKind
+
+    var body: some View {
+        message
+            .font(.footnote)
+            .foregroundStyle(.white)
+            .multilineTextAlignment(.center)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .background(.black.opacity(0.75), in: RoundedRectangle(cornerRadius: 12))
+            .padding(.horizontal, 24)
+    }
+
+    private var message: Text {
+        switch kind {
+        case .shown:
+            Text("グラフを表示に切り替えました")
+        case .hidden:
+            Text("グラフを非表示に切り替えました。右上の ")
+            + Text(Image(systemName: "eye.slash"))
+            + Text(" をタップすると、グラフ一覧の最下部で非表示にしたグラフを確認できます。")
+        }
     }
 }
