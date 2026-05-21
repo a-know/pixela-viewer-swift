@@ -22,6 +22,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.a-know.PixelaViewer
         INFOPLIST_FILE: PixelaViewer/Info.plist
         TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     info:
       path: PixelaViewer/Info.plist
       properties:

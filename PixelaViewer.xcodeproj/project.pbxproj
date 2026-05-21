@@ -19,6 +19,7 @@
 		ACD87DED3B30CDA242289806 /* PixelaAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51226EA1CEEB9D58B6417E3C /* PixelaAPIService.swift */; };
 		B592444FCF9F55B68D3F9CD6 /* GraphStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35907CD2CDAE05E684B5F972 /* GraphStats.swift */; };
 		C480FD4E8ED968290A2BBFBA /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC2784747C3652121101A9A /* KeychainService.swift */; };
+		E6935C2724C29941A9E7F426 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 775C66D156E911CA8F3C43C7 /* Assets.xcassets */; };
 		F8DBEEE8C1069065F364FBB1 /* GraphListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B32B1E315264AB104E3203 /* GraphListView.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		585776760050BC636FCA9329 /* AccountStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStore.swift; sourceTree = "<group>"; };
 		619FF46E8E6447771DD5EF95 /* PixelaViewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelaViewerApp.swift; sourceTree = "<group>"; };
 		652D05BAC010FD26740D2D61 /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
+		775C66D156E911CA8F3C43C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7FC2784747C3652121101A9A /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		836A6B192B1F0C17D7B354C8 /* PixelaViewer.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PixelaViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		960BBE76B61E7556F2CED040 /* AccountManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementView.swift; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 		973318460891A8B63664D7CE /* PixelaViewer */ = {
 			isa = PBXGroup;
 			children = (
+				775C66D156E911CA8F3C43C7 /* Assets.xcassets */,
 				ED196D06AF7614A757F3234E /* Info.plist */,
 				619FF46E8E6447771DD5EF95 /* PixelaViewerApp.swift */,
 				E7D3A9235CA66879D80A7B37 /* Models */,
@@ -118,6 +121,7 @@
 			buildConfigurationList = 7DFE89C3946AB54D17F277FB /* Build configuration list for PBXNativeTarget "PixelaViewer" */;
 			buildPhases = (
 				445B6CD16EC85779051171EE /* Sources */,
+				1C8D0995F8484DE1947BE886 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -159,6 +163,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1C8D0995F8484DE1947BE886 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6935C2724C29941A9E7F426 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		445B6CD16EC85779051171EE /* Sources */ = {
