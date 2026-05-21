@@ -8,7 +8,7 @@ struct GraphRowView: View {
     let isHidden: Bool
     let onToggleVisibility: () -> Void
 
-    @State private var svgHeight: CGFloat = 200
+    @State private var svgHeight: CGFloat = 120
     @State private var stats: GraphStats?
 
     var body: some View {
@@ -43,9 +43,7 @@ struct GraphRowView: View {
         VStack(alignment: .leading, spacing: 8) {
             header
             svgView
-            if !isCompact {
-                statsView
-            }
+            statsView
         }
         .padding(8)
         .background(.background.secondary)
@@ -88,23 +86,16 @@ struct GraphRowView: View {
     @ViewBuilder
     private var svgView: some View {
         if let url = graph.svgURL(isCompact: isCompact, isDarkMode: isDarkMode) {
-            if isCompact {
-                AsyncSVGView(url: url)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 150)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-            } else {
-                GeometryReader { proxy in
-                    AsyncSVGView(
-                        url: url,
-                        availableWidth: proxy.size.width,
-                        onHeightMeasured: { height in svgHeight = height }
-                    )
-                    .frame(width: proxy.size.width, height: svgHeight)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                }
-                .frame(height: svgHeight)
+            GeometryReader { proxy in
+                AsyncSVGView(
+                    url: url,
+                    availableWidth: proxy.size.width,
+                    onHeightMeasured: { height in svgHeight = height }
+                )
+                .frame(width: proxy.size.width, height: svgHeight)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
             }
+            .frame(height: svgHeight)
         }
     }
 
@@ -112,19 +103,29 @@ struct GraphRowView: View {
     private var statsView: some View {
         if let stats {
             Divider()
-            HStack(spacing: 0) {
-                statItem(label: "今日", value: stats.todaysQuantity)
-                Spacer()
-                statItem(label: "昨日", value: stats.yesterdayQuantity)
-                Spacer()
-                Divider()
-                    .frame(height: 28)
-                Spacer()
-                statItem(label: "最大", value: stats.maxQuantity)
-                Spacer()
-                statItem(label: "最小", value: stats.minQuantity)
-                Spacer()
-                statItem(label: "平均", value: stats.avgQuantity)
+            if isCompact {
+                HStack(spacing: 0) {
+                    statItem(label: "今日", value: stats.todaysQuantity)
+                    Spacer()
+                    statItem(label: "昨日", value: stats.yesterdayQuantity)
+                }
+                .padding(.horizontal, 8)
+            } else {
+                HStack(spacing: 0) {
+                    statItem(label: "今日", value: stats.todaysQuantity)
+                    Spacer()
+                    statItem(label: "昨日", value: stats.yesterdayQuantity)
+                    Spacer()
+                    Divider()
+                        .frame(height: 28)
+                    Spacer()
+                    statItem(label: "最大", value: stats.maxQuantity)
+                    Spacer()
+                    statItem(label: "最小", value: stats.minQuantity)
+                    Spacer()
+                    statItem(label: "平均", value: stats.avgQuantity)
+                }
+                .padding(.horizontal, 8)
             }
         } else {
             // ロード中のプレースホルダー
@@ -144,8 +145,8 @@ struct GraphRowView: View {
             Text(label)
                 .font(.caption2)
                 .foregroundStyle(.secondary)
-            Text("\(formatQuantity(value)) \(graph.unit)")
-                .font(.callout.bold())
+            (Text(formatQuantity(value)).font(.callout.bold())
+                + Text(" \(graph.unit)").font(.caption2))
                 .foregroundStyle(.primary)
         }
     }
@@ -157,7 +158,6 @@ struct GraphRowView: View {
     }
 
     private func loadStats() async {
-        guard !isCompact else { return }
         do {
             let token = try KeychainService.loadToken(for: graph.account.username)
             stats = try await PixelaAPIService.fetchGraphStats(for: graph, token: token)
