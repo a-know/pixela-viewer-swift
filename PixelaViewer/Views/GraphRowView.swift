@@ -55,10 +55,15 @@ struct GraphRowView: View {
     private var header: some View {
         if isCompact {
             VStack(alignment: .leading, spacing: 4) {
-                Text(graph.name)
-                    .font(.subheadline.bold())
-                    .foregroundStyle(.primary)
-                    .lineLimit(2)
+                HStack(alignment: .firstTextBaseline, spacing: 3) {
+                    Text(graph.name)
+                        .font(.subheadline.bold())
+                        .foregroundStyle(.primary)
+                        .lineLimit(2)
+                    Image(systemName: "arrow.up.right.square")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
                 Text(graph.account.username)
                     .font(.caption2)
                     .padding(.horizontal, 6)
@@ -69,9 +74,14 @@ struct GraphRowView: View {
             }
         } else {
             HStack {
-                Text(graph.name)
-                    .font(.headline)
-                    .foregroundStyle(.primary)
+                HStack(alignment: .firstTextBaseline, spacing: 4) {
+                    Text(graph.name)
+                        .font(.headline)
+                        .foregroundStyle(.primary)
+                    Image(systemName: "arrow.up.right.square")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
                 Spacer()
                 Text(graph.account.username)
                     .font(.caption)
