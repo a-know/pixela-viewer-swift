@@ -18,6 +18,7 @@ struct Graph: Identifiable, Equatable {
         }
         if isDarkMode {
             queryItems.append(URLQueryItem(name: "appearance", value: "dark"))
+            queryItems.append(URLQueryItem(name: "transparent", value: "true"))
         }
         if !queryItems.isEmpty {
             components?.queryItems = queryItems
