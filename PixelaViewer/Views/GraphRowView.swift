@@ -6,7 +6,9 @@ struct GraphRowView: View {
     let isDarkMode: Bool
     let isEditing: Bool
     let isHidden: Bool
+    let isPinned: Bool
     let onToggleVisibility: () -> Void
+    let onTogglePin: () -> Void
 
     @State private var svgHeight: CGFloat = 120
     @State private var svgIsLoading = true
@@ -22,15 +24,29 @@ struct GraphRowView: View {
                 }
 
             if isEditing {
-                Button {
-                    onToggleVisibility()
-                } label: {
-                    Image(systemName: isHidden ? "eye.fill" : "eye.slash.fill")
-                        .font(.caption.bold())
-                        .foregroundStyle(.white)
-                        .padding(7)
-                        .background(.black.opacity(0.55))
-                        .clipShape(Circle())
+                VStack(spacing: 6) {
+                    if !isHidden {
+                        Button {
+                            onTogglePin()
+                        } label: {
+                            Image(systemName: isPinned ? "pin.fill" : "pin")
+                                .font(.caption.bold())
+                                .foregroundStyle(.white)
+                                .padding(7)
+                                .background(isPinned ? .orange.opacity(0.85) : .black.opacity(0.55))
+                                .clipShape(Circle())
+                        }
+                    }
+                    Button {
+                        onToggleVisibility()
+                    } label: {
+                        Image(systemName: isHidden ? "eye.fill" : "eye.slash.fill")
+                            .font(.caption.bold())
+                            .foregroundStyle(.white)
+                            .padding(7)
+                            .background(.black.opacity(0.55))
+                            .clipShape(Circle())
+                    }
                 }
                 .padding(8)
             }

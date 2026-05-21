@@ -126,11 +126,16 @@ struct GraphListView: View {
                         isCompact: isCompact,
                         isDarkMode: isDarkMode,
                         isEditing: isEditing,
-                        isHidden: false
-                    ) {
-                        accountStore.hideGraph(graph)
-                        showToast(.hidden)
-                    }
+                        isHidden: false,
+                        isPinned: accountStore.isPinned(graph),
+                        onToggleVisibility: {
+                            accountStore.hideGraph(graph)
+                            showToast(.hidden)
+                        },
+                        onTogglePin: {
+                            accountStore.isPinned(graph) ? accountStore.unpinGraph(graph) : accountStore.pinGraph(graph)
+                        }
+                    )
                 }
             }
             .padding(.horizontal, 16)
@@ -150,11 +155,16 @@ struct GraphListView: View {
                                 isCompact: isCompact,
                                 isDarkMode: isDarkMode,
                                 isEditing: isEditing,
-                                isHidden: true
-                            ) {
-                                accountStore.unhideGraph(graph)
-                                showToast(.shown)
-                            }
+                                isHidden: true,
+                                isPinned: accountStore.isPinned(graph),
+                                onToggleVisibility: {
+                                    accountStore.unhideGraph(graph)
+                                    showToast(.shown)
+                                },
+                                onTogglePin: {
+                                    accountStore.isPinned(graph) ? accountStore.unpinGraph(graph) : accountStore.pinGraph(graph)
+                                }
+                            )
                         }
                     }
                     .padding(.horizontal, 16)
