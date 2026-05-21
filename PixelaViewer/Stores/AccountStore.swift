@@ -7,6 +7,7 @@ final class AccountStore: ObservableObject {
     @Published private(set) var graphs: [Graph] = []
     @Published private(set) var isLoading = false
     @Published var error: String?
+    @Published private(set) var hasServerError = false
     @Published private(set) var hiddenGraphIDs: Set<String> = []
     @Published var showHidden: Bool = false
 
@@ -63,12 +64,16 @@ final class AccountStore: ObservableObject {
     func fetchAllGraphs() async {
         isLoading = true
         error = nil
+        hasServerError = false
         var fetched: [Graph] = []
         for account in accounts {
             do {
                 let token = try KeychainService.loadToken(for: account.username)
                 let accountGraphs = try await PixelaAPIService.fetchGraphs(for: account, token: token)
                 fetched.append(contentsOf: accountGraphs)
+            } catch APIError.serverError(let code) {
+                hasServerError = true
+                self.error = "\(account.username): サーバーエラー (HTTP \(code))"
             } catch {
                 self.error = "\(account.username): \(error.localizedDescription)"
             }

@@ -21,6 +21,8 @@ struct GraphListView: View {
                 emptyAccountsView
             } else if accountStore.isLoading {
                 ProgressView("グラフを読み込み中...")
+            } else if accountStore.graphs.isEmpty && accountStore.hasServerError {
+                serverErrorView
             } else if accountStore.graphs.isEmpty {
                 emptyGraphsView
             } else {
@@ -58,8 +60,46 @@ struct GraphListView: View {
         }
     }
 
+    private var serverErrorView: some View {
+        ContentUnavailableView {
+            Label("読み込みに失敗しました", systemImage: "exclamationmark.triangle")
+        } description: {
+            Text("サーバーエラーが発生しました。\nしばらく時間をおいてから再読み込みしてください。")
+        } actions: {
+            Button(action: { Task { await accountStore.fetchAllGraphs() } }) {
+                Label("再読み込み", systemImage: "arrow.clockwise")
+            }
+            .buttonStyle(.borderedProminent)
+        }
+    }
+
+    private var serverErrorBanner: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundStyle(.orange)
+            Text("一部のグラフの読み込みに失敗しました")
+                .font(.caption)
+                .foregroundStyle(.primary)
+            Spacer()
+            Button {
+                Task { await accountStore.fetchAllGraphs() }
+            } label: {
+                Label("再読み込み", systemImage: "arrow.clockwise")
+                    .font(.caption.bold())
+            }
+            .buttonStyle(.bordered)
+            .controlSize(.small)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .background(.orange.opacity(0.12))
+    }
+
     private var graphList: some View {
         ScrollView {
+            if accountStore.hasServerError {
+                serverErrorBanner
+            }
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(accountStore.visibleGraphs) { graph in
                     GraphRowView(

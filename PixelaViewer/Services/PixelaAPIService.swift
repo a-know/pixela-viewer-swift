@@ -27,9 +27,9 @@ enum PixelaAPIService {
         request.setValue(token, forHTTPHeaderField: "X-USER-TOKEN")
 
         let (data, response) = try await URLSession.shared.data(for: request)
-        guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
-            throw APIError.requestFailed
-        }
+        guard let http = response as? HTTPURLResponse else { throw APIError.requestFailed }
+        if (500...599).contains(http.statusCode) { throw APIError.serverError(http.statusCode) }
+        guard http.statusCode == 200 else { throw APIError.requestFailed }
 
         let decoded = try JSONDecoder().decode(GraphListResponse.self, from: data)
         return decoded.graphs.map { dto in
@@ -65,12 +65,14 @@ private struct GraphDTO: Decodable {
 enum APIError: LocalizedError {
     case invalidURL
     case requestFailed
+    case serverError(Int)
     case authenticationFailed(String)
 
     var errorDescription: String? {
         switch self {
         case .invalidURL: "URLの生成に失敗しました"
         case .requestFailed: "APIリクエストに失敗しました"
+        case .serverError(let code): "サーバーエラーが発生しました (HTTP \(code))"
         case .authenticationFailed(let message): message
         }
     }
