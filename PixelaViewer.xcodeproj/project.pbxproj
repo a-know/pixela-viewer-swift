@@ -35,7 +35,7 @@
 		652D05BAC010FD26740D2D61 /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		775C66D156E911CA8F3C43C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7FC2784747C3652121101A9A /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
-		836A6B192B1F0C17D7B354C8 /* PixelaViewer.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PixelaViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		836A6B192B1F0C17D7B354C8 /* PixelaViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixelaViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		960BBE76B61E7556F2CED040 /* AccountManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementView.swift; sourceTree = "<group>"; };
 		A230D3CEA56D63728C1CA17C /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		A4B32B1E315264AB104E3203 /* GraphListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphListView.swift; sourceTree = "<group>"; };
@@ -142,8 +142,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 391F09AA0BFEC83A95E8DA5C /* Build configuration list for PBXProject "PixelaViewer" */;
 			developmentRegion = en;
@@ -262,6 +260,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = U2LZVLHC3C;
 				INFOPLIST_FILE = PixelaViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -343,6 +342,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = U2LZVLHC3C;
 				INFOPLIST_FILE = PixelaViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
