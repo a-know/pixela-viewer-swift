@@ -1,14 +1,14 @@
 import Foundation
 
 struct Graph: Identifiable, Equatable {
-    let id: String
+    let graphID: String
     let account: Account
     let name: String
     let unit: String
     let type: String
     let color: String
 
-    var graphID: String { id }
+    var id: String { "\(account.username)/\(graphID)" }
 
     func svgURL(isCompact: Bool, isDarkMode: Bool) -> URL? {
         var components = URLComponents(string: "https://pixe.la/v1/users/\(account.username)/graphs/\(graphID).svg")

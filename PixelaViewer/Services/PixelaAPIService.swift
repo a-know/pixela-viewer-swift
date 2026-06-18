@@ -49,7 +49,7 @@ enum PixelaAPIService {
         let decoded = try JSONDecoder().decode(GraphListResponse.self, from: data)
         return decoded.graphs.map { dto in
             Graph(
-                id: dto.id,
+                graphID: dto.id,
                 account: account,
                 name: dto.name,
                 unit: dto.unit,
